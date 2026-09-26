@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LAB 08 — Introduction to SQL</title>
+  <style>
+    :root { --dark:#111827; --bg:#f5f7fb; --card:#fff; --line:#d1d5db; --blue:#2563eb; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Arial,Helvetica,sans-serif; line-height:1.65; background:var(--bg); color:#1f2937; }
+    .wrap { max-width:980px; margin:auto; padding:32px 20px 60px; }
+    .hero { background:var(--dark); color:#fff; padding:36px; border-radius:18px; margin-bottom:24px; }
+    .hero h1 { margin:0 0 8px; font-size:34px; }
+    .hero p { margin:4px 0; color:#d1d5db; }
+    .card { background:var(--card); border-radius:16px; padding:26px; margin:18px 0; box-shadow:0 6px 20px rgba(0,0,0,.06); }
+    h2 { margin-top:0; color:#111827; } h3 { margin-bottom:8px; }
+    pre,code { font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace; }
+    pre { background:#0f172a; color:#e5e7eb; padding:18px; border-radius:12px; overflow:auto; }
+    table { width:100%; border-collapse:collapse; margin:14px 0; }
+    th,td { border:1px solid var(--line); padding:10px; text-align:left; }
+    th { background:#f3f4f6; }
+    .note { background:#eef2ff; border-left:4px solid #6366f1; padding:12px 16px; border-radius:8px; }
+    .warn { background:#fff7ed; border-left:4px solid #f97316; padding:12px 16px; border-radius:8px; }
+    .task { font-weight:700; color:#111827; }
+    a { color:var(--blue); }
+    footer { margin-top:28px; color:#6b7280; font-size:14px; text-align:center; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <h1>LAB 08 — Introduction to SQL</h1>
+    <p>Using XAMPP, phpMyAdmin, and SQL</p>
+    <p>Estimated time: 60–90 minutes</p>
+  </section>
+
+  <section class="card">
+    <h2>Learning Objectives</h2>
+    <p>After completing this lab, students should be able to install and start a local database environment, create databases and tables, define primary and foreign keys, and use SQL commands including INSERT, SELECT, UPDATE, DELETE, and ALTER TABLE.</p>
+  </section>
+
+  <section class="card">
+    <h2>Part 1 — Install XAMPP</h2>
+    <p>Download XAMPP from the official Apache Friends website:</p>
+    <p><a href="https://www.apachefriends.org/" target="_blank" rel="noopener">Apache Friends — XAMPP</a></p>
+
+    <h3>Windows</h3>
+    <p>Install XAMPP, open <b>XAMPP Control Panel</b>, and start:</p>
+    <pre>Apache    [Start]
+MySQL     [Start]</pre>
+
+    <h3>macOS</h3>
+    <p>Open XAMPP and start the required services. The database service must be running for this lab.</p>
+
+    <h3>Open phpMyAdmin</h3>
+    <p>Open your browser and go to:</p>
+    <pre>http://localhost/phpmyadmin</pre>
+    <div class="note">If phpMyAdmin opens successfully, your local database environment is ready.</div>
+  </section>
+
+  <section class="card">
+    <h2>Part 2 — Create Your First Database</h2>
+    <p>Open the <b>SQL</b> tab in phpMyAdmin and run:</p>
+    <pre>CREATE DATABASE camt_shop;
+USE camt_shop;</pre>
+    <p class="task">Exercise 1</p>
+    <p>Capture a screenshot showing the <code>camt_shop</code> database.</p>
+    <p><b>Question:</b> <code>CREATE DATABASE</code> belongs to which SQL category?</p>
+    <p>□ DDL &nbsp;&nbsp; □ DML &nbsp;&nbsp; □ DCL</p>
+  </section>
+
+  <section class="card">
+    <h2>Part 3 — Create Tables</h2>
+    <h3>Exercise 2 — CUSTOMER</h3>
+    <table>
+      <tr><th>Column</th><th>Data Type</th><th>Constraint</th></tr>
+      <tr><td>customer_id</td><td>INT</td><td>PRIMARY KEY</td></tr>
+      <tr><td>customer_name</td><td>VARCHAR(100)</td><td>NOT NULL</td></tr>
+      <tr><td>email</td><td>VARCHAR(100)</td><td>UNIQUE</td></tr>
+      <tr><td>city</td><td>VARCHAR(50)</td><td>—</td></tr>
+    </table>
+    <pre>CREATE TABLE CUSTOMER (
+    -- Write your SQL here
+);</pre>
+
+    <h3>Exercise 3 — PRODUCT</h3>
+    <table>
+      <tr><th>Column</th><th>Data Type</th><th>Constraint</th></tr>
+      <tr><td>product_id</td><td>INT</td><td>PRIMARY KEY</td></tr>
+      <tr><td>product_name</td><td>VARCHAR(100)</td><td>NOT NULL</td></tr>
+      <tr><td>price</td><td>DECIMAL(10,2)</td><td>NOT NULL</td></tr>
+      <tr><td>stock</td><td>INT</td><td>—</td></tr>
+    </table>
+    <pre>-- Write your CREATE TABLE statement here</pre>
+
+    <h3>Exercise 4 — ORDERS</h3>
+    <table>
+      <tr><th>Column</th><th>Data Type</th><th>Constraint</th></tr>
+      <tr><td>order_id</td><td>INT</td><td>PRIMARY KEY</td></tr>
+      <tr><td>customer_id</td><td>INT</td><td>FOREIGN KEY</td></tr>
+      <tr><td>product_id</td><td>INT</td><td>FOREIGN KEY</td></tr>
+      <tr><td>quantity</td><td>INT</td><td>NOT NULL</td></tr>
+      <tr><td>order_date</td><td>DATE</td><td>—</td></tr>
+    </table>
+    <pre>CREATE TABLE ORDERS (
+    -- columns
+
+    -- foreign keys
+);</pre>
+    <p><b>Question:</b> Why should <code>customer_id</code> in ORDERS be a foreign key?</p>
+  </section>
+
+  <section class="card">
+    <h2>Part 4 — INSERT Data</h2>
+    <h3>Exercise 5 — CUSTOMER</h3>
+    <table>
+      <tr><th>ID</th><th>Name</th><th>Email</th><th>City</th></tr>
+      <tr><td>1</td><td>Alice</td><td>alice@email.com</td><td>Chiang Mai</td></tr>
+      <tr><td>2</td><td>Bob</td><td>bob@email.com</td><td>Bangkok</td></tr>
+      <tr><td>3</td><td>Charlie</td><td>charlie@email.com</td><td>Chiang Mai</td></tr>
+      <tr><td>4</td><td>David</td><td>david@email.com</td><td>Phuket</td></tr>
+      <tr><td>5</td><td>Emma</td><td>emma@email.com</td><td>Bangkok</td></tr>
+    </table>
+    <pre>INSERT INTO CUSTOMER
+VALUES (1, 'Alice', 'alice@email.com', 'Chiang Mai');</pre>
+    <p>Add the remaining four records yourself.</p>
+
+    <h3>Exercise 6 — PRODUCT</h3>
+    <table>
+      <tr><th>ID</th><th>Product</th><th>Price</th><th>Stock</th></tr>
+      <tr><td>1</td><td>Keyboard</td><td>890</td><td>10</td></tr>
+      <tr><td>2</td><td>Mouse</td><td>450</td><td>20</td></tr>
+      <tr><td>3</td><td>Monitor</td><td>4500</td><td>5</td></tr>
+      <tr><td>4</td><td>USB Cable</td><td>250</td><td>30</td></tr>
+      <tr><td>5</td><td>Webcam</td><td>1200</td><td>8</td></tr>
+    </table>
+    <pre>-- Write your INSERT statements here</pre>
+  </section>
+
+  <section class="card">
+    <h2>Part 5 — SELECT</h2>
+    <p class="task">Exercise 7</p>
+    <p>7.1 Show all customers.</p>
+    <pre>SELECT ______
+FROM CUSTOMER;</pre>
+    <p>7.2 Show only customer name and city.</p>
+    <pre>SELECT __________, __________
+FROM CUSTOMER;</pre>
+    <p>7.3 Show customers who live in Chiang Mai.</p>
+    <pre>SELECT *
+FROM CUSTOMER
+WHERE ______________________;</pre>
+    <p>7.4 Show products with price greater than 500.</p>
+    <pre>-- Write your SQL here</pre>
+  </section>
+
+  <section class="card">
+    <h2>Part 6 — UPDATE</h2>
+    <p class="task">Exercise 8</p>
+    <p>Change the price of Mouse from 450 to 490.</p>
+    <pre>UPDATE PRODUCT
+SET __________________
+WHERE __________________;</pre>
+    <p>Check your result:</p>
+    <pre>SELECT * FROM PRODUCT;</pre>
+    <div class="warn">
+      <b>Predict before running:</b>
+      <pre>UPDATE PRODUCT
+SET price = 0;</pre>
+      <p>What will happen? Explain your answer before executing the statement.</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Part 7 — DELETE</h2>
+    <p class="task">Exercise 9</p>
+    <p>Delete the product with <code>product_id = 5</code>.</p>
+    <pre>DELETE FROM __________
+WHERE __________________;</pre>
+    <p>Explain the difference between:</p>
+    <pre>DELETE FROM PRODUCT
+WHERE product_id = 5;</pre>
+    <p>and</p>
+    <pre>DELETE FROM PRODUCT;</pre>
+  </section>
+
+  <section class="card">
+    <h2>Part 8 — ALTER TABLE</h2>
+    <p class="task">Exercise 10</p>
+    <p>Add a column named <code>phone</code> with data type <code>VARCHAR(20)</code> to CUSTOMER.</p>
+    <pre>ALTER TABLE CUSTOMER
+____________________________;</pre>
+    <p>Verify the new column using the <b>Structure</b> tab in phpMyAdmin.</p>
+  </section>
+
+  <section class="card">
+    <h2>Challenge ⭐ — Foreign Key</h2>
+    <p class="task">Exercise 11 — Think Like a Database Developer</p>
+    <pre>INSERT INTO ORDERS
+VALUES (101, 99, 1, 2, '2026-09-26');</pre>
+    <p>Assume there is no <code>customer_id = 99</code> in CUSTOMER.</p>
+    <p>Will it work? □ YES &nbsp;&nbsp; □ NO</p>
+    <p>Explain why.</p>
+  </section>
+
+  <section class="card">
+    <h2>Challenge ⭐⭐ — Debug SQL</h2>
+    <p class="task">Exercise 12</p>
+    <p>Find and fix the syntax errors:</p>
+    <pre>CREATE TABLE STUDENT (
+    student_id INT PRIMARY KEY
+    student_name VARCHAR(100)
+    email VARCHAR(100) UNIQUE
+);</pre>
+    <p>Write the corrected SQL:</p>
+    <pre>-- Write your answer here</pre>
+  </section>
+
+  <section class="card">
+    <h2>Submission</h2>
+    <p>Submit one SQL file:</p>
+    <pre>studentID_lab08.sql</pre>
+    <p>Also submit screenshots showing:</p>
+    <ol>
+      <li>The <code>camt_shop</code> database</li>
+      <li>The structure of the three tables</li>
+      <li>The result of <code>SELECT * FROM PRODUCT;</code></li>
+    </ol>
+    <h3>Suggested Score: 20 points</h3>
+    <table>
+      <tr><th>Section</th><th>Points</th></tr>
+      <tr><td>Installation / Setup</td><td>2</td></tr>
+      <tr><td>CREATE TABLE</td><td>4</td></tr>
+      <tr><td>PK / FK / Constraints</td><td>3</td></tr>
+      <tr><td>INSERT</td><td>2</td></tr>
+      <tr><td>SELECT / WHERE</td><td>3</td></tr>
+      <tr><td>UPDATE / DELETE</td><td>2</td></tr>
+      <tr><td>ALTER TABLE</td><td>2</td></tr>
+      <tr><td>Challenge / Debugging</td><td>2</td></tr>
+    </table>
+  </section>
+
+  <footer>DB_MSE • SQL Lab 08 • College of Arts, Media and Technology, Chiang Mai University</footer>
+</div>
+</body>
+</html>
